@@ -119,11 +119,11 @@ print('Model testing accuracy/testing loss:', test_acc, " ", test_loss)
 
 
 # j'essaie d'avoir en sortie un model sauvgarder que je pourrait utlisé ou je veux
-model_InceptionV3.save("modelInception.h5")
+model_InceptionV3.save("inceptionDernier.h5")
 print("model créé !")
 
 
-###################################################################################################
+##################################################################################################
 # j'ai rajouté le serveur ici pour exploiter le model inception
 # import os
 # from uuid import uuid4
@@ -223,6 +223,6 @@ print("model créé !")
 #
 # if __name__ == "__main__":
 #     app.run(debug=False)
-#
+
     ########################################################################################
 

@@ -105,7 +105,7 @@ plt.legend()
 
 plt.show()
 
-classifier.save("cnnMoreFruit.h5")
+classifier.save("dernierModelCnnNewMoreFruit.h5")
 print("model créé !")
 
 # 131 fruit
@@ -135,72 +135,72 @@ name_of_classes = ['Apple Braeburn', 'Apple Crimson Snow', 'Apple Golden 1', 'Ap
                    'Tomato Heart', 'Tomato Maroon', 'Tomato Not Ripened', 'Tomato Yellow', 'Tomato 1', 'Tomato 2',
                    'Tomato 3', 'Tomato 4', 'Walnut', 'Watermelon']
 
-test_image = image.load_img('banana.jpg', target_size=(100, 100))
+test_image = image.load_img('img/banana.jpg', target_size=(100, 100))
 test_image = image.img_to_array(test_image)
 test_image = np.expand_dims(test_image, axis=0)
 result = classifier.predict(test_image)
 Training.class_indices
-img = 'banana.jpg'
+img = 'img/banana.jpg'
 Image.open(img)
 
-test_image = image.load_img('hb.jpg', target_size=(100, 100))
+test_image = image.load_img('img/hb.jpg', target_size=(100, 100))
 test_image = image.img_to_array(test_image)
 test_image = np.expand_dims(test_image, axis=0)
 result = classifier.predict(test_image)
 Training.class_indices
-img = 'hb.jpg'
+img = 'img/hb.jpg'
 Image.open(img)
 
-test_image = image.load_img('lychee.jpg', target_size=(100, 100))
+test_image = image.load_img('img/lychee.jpg', target_size=(100, 100))
 test_image = image.img_to_array(test_image)
 test_image = np.expand_dims(test_image, axis=0)
 result = classifier.predict(test_image)
 Training.class_indices
-img = 'lychee.jpg'
+img = 'img/lychee.jpg'
 Image.open(img)
 
-test_image = image.load_img('coco.jpg', target_size=(100, 100))
+test_image = image.load_img('img/coco.jpg', target_size=(100, 100))
 test_image = image.img_to_array(test_image)
 test_image = np.expand_dims(test_image, axis=0)
 result = classifier.predict(test_image)
 Training.class_indices
-img = 'coco.jpg'
+img = 'img/coco.jpg'
 Image.open(img)
 
-test_image = image.load_img('gapp2.jpg', target_size=(100, 100))
+test_image = image.load_img('img/gapp2.jpg', target_size=(100, 100))
 test_image = image.img_to_array(test_image)
 test_image = np.expand_dims(test_image, axis=0)
 result = classifier.predict(test_image)
 Training.class_indices
-img = 'gapp2.jpg'
+img = 'img/gapp2.jpg'
 Image.open(img)
 
-test_image = image.load_img('cf.jpg', target_size=(100, 100))
+test_image = image.load_img('img/cf.jpg', target_size=(100, 100))
 test_image = image.img_to_array(test_image)
 test_image = np.expand_dims(test_image, axis=0)
 result = classifier.predict(test_image)
 Training.class_indices
-img = 'cf.jpg'
+img = 'img/cf.jpg'
 Image.open(img)
 
-test_image = image.load_img('lmn.jpg', target_size=(100, 100))
+test_image = image.load_img('img/lmn.jpg', target_size=(100, 100))
 test_image = image.img_to_array(test_image)
 test_image = np.expand_dims(test_image, axis=0)
 result = classifier.predict(test_image)
 Training.class_indices
-img = 'lmn.jpg'
+img = 'img/lmn.jpg'
 Image.open(img)
 
-test_image = image.load_img('banana.jpg', target_size=(100, 100))
-test_image = image.img_to_array(test_image)
-test_image = np.expand_dims(test_image, axis=0)
-result = classifier.predict(test_image)
-Training.class_indices
-img = 'banana.jpg'
-Image.open(img)
+# test_image = image.load_img('banana.jpg', target_size=(100, 100))
+# test_image = image.img_to_array(test_image)
+# test_image = np.expand_dims(test_image, axis=0)
+# result = classifier.predict(test_image)
+# Training.class_indices
+# img = 'banana.jpg'
+# Image.open(img)
 
 for i in range(no_of_classes):
     if (result[0][i] == 1.0):
-        img_path = 'Training65' + name_of_classes[i] + '/2_100.jpg'
+        img_path = 'fruits-360/Training' + name_of_classes[i] + '/2_100.jpg'
         print('Predicted:', name_of_classes[i])
 Image.open(img_path)
