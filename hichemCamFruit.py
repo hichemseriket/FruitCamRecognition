@@ -229,9 +229,10 @@ def Predict(prev_image):
     # fonctionne avec les classes au nombre de 65
     # new_model = load_model('model65.h5')
     # les autres models sont entrainer a reconnaitre 131 fruit "classe" mais ils me pose probleme
-    new_model = load_model('modelInception.h5')
+    # new_model = load_model('modelInception.h5')
     # new_model = load_model('inceptionDernier.h5')
-    # new_model = load_model('dernierModelCnnNewMoreFruit.h5')
+    # ce model fonctionne quelques fois avec l'upload mais avec la camera direct
+    new_model = load_model('dernierModelCnnNewMoreFruit.h5')
     # model plutot bon avec les 5 fruit ,
     # oublie pas de commenté les classes et de decommenté les classes contenant que les 5 fruit
     # new_model = load_model('model5.h5')
@@ -240,9 +241,9 @@ def Predict(prev_image):
     new_model.summary()
     test_image = image.load_img(
         prev_image,
-        target_size=(64, 64))
+        # target_size=(64, 64))
         # a utilisé pour les model venu de cnn-new-more-fruit
-        # target_size=(100, 100))
+        target_size=(100, 100))
         # à utilisé quand c'est le model inception target 299, 299
         # target_size=(299, 299))
     test_image = image.img_to_array(test_image)

@@ -105,7 +105,11 @@ def upload():
         # ici jessaye de mettre le model que jai entrainé avec le tuto qui a plus de fruit
         # new_model = load_model('fruits_fresh_cnn_1.h5')
         new_model.summary()
+        # pour le model.h5, model5.h5, model13
+        # test_image = image.load_img('images\\' + filename, target_size=(64, 64))
+        # pour le model13.h5, model65.h5
         # test_image = image.load_img('images\\' + filename, target_size=(100, 100))
+        #pour les model inception
         test_image = image.load_img('images\\' + filename, target_size=(299, 299))
         test_image = image.img_to_array(test_image)
         test_image = np.expand_dims(test_image, axis=0)
