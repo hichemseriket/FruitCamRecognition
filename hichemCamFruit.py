@@ -36,18 +36,25 @@ import numpy as np
 from keras.preprocessing import image
 from keras.models import load_model
 
+# ces classes fonctionnes avec le model13.h5
 # classes = ['Apple Braeburn', 'Apple Golden 1', 'Blueberry', 'Cherry 1', 'Cherry 2', 'Fresh Banana', 'Fresh Orange',
 #            'Huckleberry', 'Litchi', 'Maracuja', 'Rotten Banana', 'Rotten Orange']
-# oufff enfin j'ai fini de faire les classe jen ai chier a les mettre en ordre et savoir le nombre et ce qui manque dans la liste des classe en dur par rapport au dossier  hahaha'
+# oufff enfin j'ai fini de faire les classe jen ai chier a les mettre en ordre et savoir
+# le nombre et ce qui manque dans la liste des classe en dur par rapport au dossier  hahaha'
+# classes au nombre de 65 fonctionne avec le model65.h5
 # classes = ['Apple Braeburn', 'Apple Golden 1', 'Apple Golden 2', 'Apple Golden 3', 'Apple Granny Smith',
 #            'Apple Red Delicious', 'Apple Red Yellow', 'Apple Red 1', 'Apple Red 2', 'Apple Red 3',
-#            'Apricot', 'Avocado', 'Avocado ripe', 'Banana', 'Banana Red', 'Cactus fruit', 'Cantaloupe 1', 'Cantaloupe 2',
-#            'Carambula', 'Cherry Rainier', 'Cherry 1', 'Cherry 2', 'Clementine', 'Cocos', 'Dates', 'Granadilla', 'Grape Pink',
-#            'Grape White', 'Grape White 2', 'Grapefruit Pink', 'Grapefruit White', 'Guava', 'Huckleberry', 'Kaki', 'Kiwi', 'Kumquats',
-#            'Lemon', 'Lemon Meyer', 'Limes', 'Litchi', 'Mandarine', 'Mango', 'Maracuja', 'Melon Piel de Sapo', 'Nectarine', 'Orange', 'Papaya',
-#            'Passion Fruit', 'Peach', 'Peach Flat', 'Pear', 'Pear Abate', 'Pear Monster', 'Pear Williams',
-#            'Pepino', 'Pineapple', 'Pitahaya Red', 'Plum', 'Pomegranate', 'Quince', 'Raspberry', 'Salak',
-#            'Strawberry', 'Tamarillo', 'Tangelo']
+#            'Apricot', 'Avocado', 'Avocado ripe', 'Banana', 'Banana Red',
+#            'Cactus fruit', 'Cantaloupe 1', 'Cantaloupe 2', 'Carambula', 'Cherry Rainier',
+#            'Cherry 1', 'Cherry 2', 'Clementine', 'Cocos', 'Dates',
+#            'Granadilla', 'Grape Pink', 'Grape White', 'Grape White 2', 'Grapefruit Pink',
+#            'Grapefruit White', 'Guava', 'Huckleberry', 'Kaki', 'Kiwi',
+#            'Kumquats', 'Lemon', 'Lemon Meyer', 'Limes', 'Litchi',
+#            'Mandarine', 'Mango', 'Maracuja', 'Melon Piel de Sapo', 'Nectarine',
+#            'Orange', 'Papaya', 'Passion Fruit', 'Peach', 'Peach Flat',
+#            'Pear', 'Pear Abate', 'Pear Monster', 'Pear Williams', 'Pepino',
+#            'Pineapple', 'Pitahaya Red', 'Plum', 'Pomegranate', 'Quince',
+#            'Raspberry', 'Salak', 'Strawberry', 'Tamarillo', 'Tangelo']
 
 
 # 131 fruit
@@ -73,7 +80,8 @@ classes = ['Apple Braeburn', 'Apple Crimson Snow', 'Apple Golden 1', 'Apple Gold
            'Tomato Heart', 'Tomato Maroon', 'Tomato Not Ripened', 'Tomato Yellow', 'Tomato 1', 'Tomato 2',
            'Tomato 3', 'Tomato 4', 'Walnut', 'Watermelon']
 
-# # pour reconnaitre uniquement 6 fruit j'ai mis ça en place
+# # pour reconnaitre uniquement 6 fruit j'ai mis ça en place,
+# cela fonctionne plutot bien avec les deux appli de prediction, le model pour ces 5 fruit est : model5.h5
 # classes = ['apple', 'banana', 'orange', 'litchi', 'maracuja']
 
 
@@ -218,19 +226,23 @@ def Upload(prev_image):
 
 def Predict(prev_image):
     global prediction
-
+    # fonctionne avec les classes au nombre de 65
     # new_model = load_model('model65.h5')
-    # new_model = load_model('modelInception.h5')
+    # les autres models sont entrainer a reconnaitre 131 fruit "classe" mais ils me pose probleme
+    new_model = load_model('modelInception.h5')
     # new_model = load_model('inceptionDernier.h5')
-    new_model = load_model('dernierModelCnnNewMoreFruit.h5')
-    # model avec 65 fruit
+    # new_model = load_model('dernierModelCnnNewMoreFruit.h5')
+    # model plutot bon avec les 5 fruit ,
+    # oublie pas de commenté les classes et de decommenté les classes contenant que les 5 fruit
+    # new_model = load_model('model5.h5')
+    # model avec 13 fruit decommenté la ligne 40
     # new_model = load_model('model13.h5')
     new_model.summary()
     test_image = image.load_img(
         prev_image,
-        # target_size=(64, 64))
+        target_size=(64, 64))
         # a utilisé pour les model venu de cnn-new-more-fruit
-        target_size=(100, 100))
+        # target_size=(100, 100))
         # à utilisé quand c'est le model inception target 299, 299
         # target_size=(299, 299))
     test_image = image.img_to_array(test_image)
