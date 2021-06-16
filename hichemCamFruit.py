@@ -220,13 +220,19 @@ def Predict(prev_image):
     global prediction
 
     # new_model = load_model('model65.h5')
-    new_model = load_model('modelInception.h5')
+    # new_model = load_model('modelInception.h5')
+    # new_model = load_model('inceptionDernier.h5')
+    new_model = load_model('dernierModelCnnNewMoreFruit.h5')
     # model avec 65 fruit
     # new_model = load_model('model13.h5')
     new_model.summary()
     test_image = image.load_img(
         prev_image,
-        target_size=(64, 64))
+        # target_size=(64, 64))
+        # a utilisé pour les model venu de cnn-new-more-fruit
+        target_size=(100, 100))
+        # à utilisé quand c'est le model inception target 299, 299
+        # target_size=(299, 299))
     test_image = image.img_to_array(test_image)
     test_image = np.expand_dims(test_image, axis=0)
     result = new_model.predict(test_image)
