@@ -27,7 +27,8 @@ classifier = Sequential()
 #dans convolution il ya bcp de parametre et dommage le 32 le son a coupé pour le premier 32 type de filtre pour extraire different feature , le (3,3) est la taille du filtre
 #input shape parametre qui decide la taille des image que je vais introduire dans mon reseau le 64 x 64 largeur hauteur, et le 3 color scal rgb
 #activation fonction , on va utilisé la non linearité entre les image et relu function est la meilleure des fonction pour la non linearité
-classifier.add(Convolution2D(32, (3, 3), input_shape=(64, 64, 3), activation='relu'))
+# classifier.add(Convolution2D(32, (3, 3), input_shape=(64, 64, 3), activation='relu'))
+classifier.add(Convolution2D(32, (3, 3), input_shape=(100, 100, 3), activation='relu'))
 # la taille de polling metrix (2,2)
 classifier.add(MaxPooling2D(pool_size=(2, 2)))
 
@@ -58,7 +59,7 @@ classifier.add(Dense(units=256, activation='relu'))
 
 # le nombre de nouronnes est seulment de 6 car c'est le nombre de mes sorties et il est du au fait que jai que 3 fruit chacun d'entre eux  possede 2 category donc au final j'ai 6 classes
 # la fonction activation ici est softmax car softmax est utilise pour categorical classification
-classifier.add(Dense(units=5, activation='softmax'))
+classifier.add(Dense(units=131, activation='softmax'))
 # je recree un model que jentraine uniquement sur 12 classe trop de classe lui a fait perdre la boule
 # classifier.add(Dense(units=12, activation='softmax'))
 
@@ -113,7 +114,8 @@ print("\nTraining the data...\n")
 training_set = train_datagen.flow_from_directory('fruits-360/Training',
 #2 avec les data contenu dans fruit bref 65 classe
 # training_set = train_datagen.flow_from_directory('Training65',
-                                                 target_size=(64, 64), # pareill que lors de linput plus haut donc la largeur et la hauteur de limage
+#                                                  target_size=(64, 64), # pareill que lors de linput plus haut donc la largeur et la hauteur de limage
+                                                 target_size=(100, 100), # pareill que lors de linput plus haut donc la largeur et la hauteur de limage
                                                  batch_size=16,  # Total no. of batches
                                                  # batch a precisé : il dit il parlera plustard dans la video pourquoi 12
                                                  class_mode='categorical')
@@ -131,7 +133,8 @@ training_set = train_datagen.flow_from_directory('fruits-360/Training',
 # test_set = test_datagen.flow_from_directory('test6',
 test_set = test_datagen.flow_from_directory('fruits-360/Test',
 # test_set = test_datagen.flow_from_directory('Validation65',
-                                            target_size=(64, 64),
+#                                             target_size=(64, 64),
+                                            target_size=(100, 100),
                                             batch_size=16,
                                             class_mode='categorical')
 
@@ -151,7 +154,7 @@ classifier.fit_generator(training_set,
 # step8 saving model
 
 # classifier.save("model.h5")
-classifier.save("soirModelOrange.h5")
+classifier.save("merdeMerde.h5")
 print("model créé !")
 # classifier.save("model13.h5")
 # classifier.save("model65.h5")

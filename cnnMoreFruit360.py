@@ -30,12 +30,14 @@ train_data = ImageDataGenerator(
 test_data = ImageDataGenerator(rescale=1. / 255)
 train_generator = train_data.flow_from_directory(
     train_dir,
-    target_size=(299, 299),
+    # target_size=(299, 299),
+    target_size=(100, 100),
     batch_size=16,
     class_mode='categorical')
 test_generator = test_data.flow_from_directory(
     test_dir,
-    target_size=(299, 299),
+    # target_size=(299, 299),
+    target_size=(100, 100),
     batch_size=16,
     class_mode='categorical')
 
