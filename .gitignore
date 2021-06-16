@@ -34,3 +34,4 @@ enregistrementFruit.py
 input
 bananedetecteur.py
 modelInception.h5
+*.h5
