@@ -96,7 +96,8 @@ def upload():
         # new_model = load_model('model.h5')
 
         # ce model est entrainer sur 131 classe
-        new_model = load_model('modelInception.h5')
+        new_model = load_model('inceptionDernier.h5')
+        # new_model = load_model('dernierModelCnnNewMoreFruit.h5')
 
         # mon autre model entrainer sur 65 classes
         # new_model = load_model('fruits_fresh_cnn_1.h5')
@@ -104,7 +105,8 @@ def upload():
         # ici jessaye de mettre le model que jai entrainé avec le tuto qui a plus de fruit
         # new_model = load_model('fruits_fresh_cnn_1.h5')
         new_model.summary()
-        test_image = image.load_img('images\\' + filename, target_size=(64, 64))
+        # test_image = image.load_img('images\\' + filename, target_size=(100, 100))
+        test_image = image.load_img('images\\' + filename, target_size=(299, 299))
         test_image = image.img_to_array(test_image)
         test_image = np.expand_dims(test_image, axis=0)
         result = new_model.predict(test_image)
@@ -112,7 +114,7 @@ def upload():
         for i in range(6):
 
             if result1[i] == 1.:
-                break;
+                break
         prediction = classes[i]
 
     # return send_from_directory("images", filename, as_attachment=True)
