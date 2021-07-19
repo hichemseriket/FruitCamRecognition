@@ -34,7 +34,7 @@ IMG_SHAPE = 50
 fruit_images = []
 fruit_labels = []
 # listdir("../input/train/Train")
-base_path = "../Fruit Classification/Training65"
+base_path = "fruits-360/Training"
 banana = base_path + 'Banana/'
 for file in listdir(banana):
     file_path = banana + file
@@ -60,7 +60,7 @@ for file in listdir(banana):
         fruit_labels.append(0)
         fruit_labels.append(0)
         fruit_labels.append(0)
-app = base_path + 'applegolden1/'
+app = base_path + 'Apple Braeburn/'
 for file in listdir(app):
     if file.endswith('.jpg'):
         file_path = app + file
@@ -228,7 +228,7 @@ def get_images(ids, filepath):
 sub_df = pd.read_csv('../input/q2.csv')
 test_id = sub_df['ID']
 test_id = test_id.astype(str)
-test_path = '../Fruit Classification/Test/'
+test_path = 'fruits-360/Test'
 test = get_images(ids=test_id, filepath=test_path)
 
 l = []

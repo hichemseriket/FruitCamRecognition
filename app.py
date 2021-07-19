@@ -16,13 +16,15 @@ APP_ROOT = os.path.dirname(os.path.abspath(__file__))
 #
 # classes = ['apple', 'banana', 'litchi', 'maracuja', 'orange']
 # je vais essayé d'entrainné le model sur les data entrainement plus grand en gardant ce script
-# oufff enfin j'ai fini de faire les classe jen ai chier a les mettre en ordre et savoir le nombre et ce qui manque dans la liste des classe en dur par rapport au dossier  hahaha'
+# oufff enfin j'ai fini de faire les classe jen ai chier a les mettre en ordre et savoir le nombre et ce qui manque
+# dans la liste des classe en dur par rapport au dossier  hahaha'
 # classes = ['Apple Braeburn', 'Apple Golden 1', 'Apple Golden 2', 'Apple Golden 3', 'Apple Granny Smith',
 #            'Apple Red Delicious', 'Apple Red Yellow', 'Apple Red 1', 'Apple Red 2', 'Apple Red 3',
-#            'Apricot', 'Avocado', 'Avocado ripe', 'Banana', 'Banana Red', 'Cactus fruit', 'Cantaloupe 1', 'Cantaloupe 2',
-#            'Carambula', 'Cherry Rainier', 'Cherry 1', 'Cherry 2', 'Clementine', 'Cocos', 'Dates', 'Granadilla', 'Grape Pink',
-#            'Grape White', 'Grape White 2', 'Grapefruit Pink', 'Grapefruit White', 'Guava', 'Huckleberry', 'Kaki', 'Kiwi', 'Kumquats',
-#            'Lemon', 'Lemon Meyer', 'Limes', 'Litchi', 'Mandarine', 'Mango', 'Maracuja', 'Melon Piel de Sapo', 'Nectarine', 'Orange', 'Papaya',
+#            'Apricot', 'Avocado', 'Avocado ripe', 'Banana', 'Banana Red', 'Cactus fruit', 'Cantaloupe 1',
+#            'Cantaloupe 2', 'Carambula', 'Cherry Rainier', 'Cherry 1', 'Cherry 2', 'Clementine', 'Cocos',
+#            'Dates', 'Granadilla', 'Grape Pink', 'Grape White', 'Grape White 2', 'Grapefruit Pink', 'Grapefruit White',
+#            'Guava', 'Huckleberry', 'Kaki', 'Kiwi', 'Kumquats', 'Lemon', 'Lemon Meyer', 'Limes', 'Litchi', 'Mandarine',
+#            'Mango', 'Maracuja', 'Melon Piel de Sapo', 'Nectarine', 'Orange', 'Papaya',
 #            'Passion Fruit', 'Peach', 'Peach Flat', 'Pear', 'Pear Abate', 'Pear Monster', 'Pear Williams',
 #            'Pepino', 'Pineapple', 'Pitahaya Red', 'Plum', 'Pomegranate', 'Quince', 'Raspberry', 'Salak',
 #            'Strawberry', 'Tamarillo', 'Tangelo']
@@ -30,25 +32,30 @@ APP_ROOT = os.path.dirname(os.path.abspath(__file__))
 # # 131 fruit
 classes = ['Apple Braeburn', 'Apple Crimson Snow', 'Apple Golden 1', 'Apple Golden 2', 'Apple Golden 3',
            'Apple Granny Smith', 'Apple Pink Lady', 'Apple Red Delicious', 'Apple Red Yellow 1', 'Apple Red Yellow 2',
-           'Apple Red 1', 'Apple Red 2', 'Apple Red 3', 'Apricot', 'Avocado', 'Avocado ripe', 'Banana',
-           'Banana Lady Finger', 'Banana Red', 'Beetroot', 'Blueberry', 'Cactus fruit',
-           'Cantaloupe 1', 'Cantaloupe 2', 'Carambula', 'Cauliflower',
-           'Cherry Rainier', 'Cherry Wax Black', 'Cherry Wax Red', 'Cherry Wax Yellow',
-           'Cherry 1', 'Cherry 2', 'Chestnut', 'Clementine', 'Cocos', 'Corn', 'Corn Husk', 'Cucumber Ripe',
-           'Cucumber Ripe 2', 'Dates', 'Eggplant', 'Fig', 'Ginger Root', 'Granadilla', 'Grape Blue',
+           'Apple Red 1', 'Apple Red 2', 'Apple Red 3', 'Apricot', 'Avocado',
+           'Avocado ripe', 'Banana', 'Banana Lady Finger', 'Banana Red', 'Beetroot',
+           'Blueberry', 'Cactus fruit', 'Cantaloupe 1', 'Cantaloupe 2', 'Carambula',
+           'Cauliflower', 'Cherry Rainier', 'Cherry Wax Black', 'Cherry Wax Red', 'Cherry Wax Yellow',
+           'Cherry 1', 'Cherry 2', 'Chestnut', 'Clementine', 'Cocos',
+           'Corn', 'Corn Husk', 'Cucumber Ripe', 'Cucumber Ripe 2', 'Dates',
+           'Eggplant', 'Fig', 'Ginger Root', 'Granadilla', 'Grape Blue',
            'Grape Pink', 'Grape White', 'Grape White 2', 'Grape White 3', 'Grape White 4',
            'Grapefruit Pink', 'Grapefruit White', 'Guava', 'Hazelnut', 'Huckleberry',
-           'Kaki', 'Kiwi', 'Kohlrabi', 'Kumquats', 'Lemon', 'Lemon Meyer', 'Limes', 'Lychee',
-           'Mandarine', 'Mango', 'Mango Red', 'Mangostan', 'Maracuja', 'Melon Piel de Sapo', 'Mulberry',
-           'Nectarine', 'Nectarine Flat', 'Nut Forest', 'Nut Pecan', 'Onion Red', 'Onion Red Peeled', 'Onion White',
-           'Orange', 'Papaya', 'Passion Fruit', 'Peach', 'Peach Flat', 'Peach 2', 'Pear', 'Pear Abate',
-           'Pear Forelle', 'Pear Kaiser', 'Pear Monster', 'Pear Red', 'Pear Stone', 'Pear Williams', 'Pear 2', 'Pepino',
-           'Pepper Green', 'Pepper Orange', 'Pepper Red', 'Pepper Yellow', 'Physalis', 'Physalis with Husk',
-           'Pineapple', 'Pineapple Mini', 'Pitahaya Red', 'Plum', 'Plum 2',  'Plum 3', 'Pomegranate', 'Pomelo Sweetie',
-           'Potato Red', 'Potato Red Washed', 'Potato Sweet', 'Potato White', 'Quince', 'Rambutan', 'Raspberry',
-           'Redcurrant', 'Salak', 'Strawberry', 'Strawberry Wedge', 'Tamarillo', 'Tangelo', 'Tomato Cherry Red',
-           'Tomato Heart', 'Tomato Maroon', 'Tomato Not Ripened', 'Tomato Yellow', 'Tomato 1', 'Tomato 2',
-           'Tomato 3', 'Tomato 4', 'Walnut', 'Watermelon']
+           'Kaki', 'Kiwi', 'Kohlrabi', 'Kumquats', 'Lemon',
+           'Lemon Meyer', 'Limes', 'Lychee', 'Mandarine', 'Mango',
+           'Mango Red', 'Mangostan', 'Maracuja', 'Melon Piel de Sapo', 'Mulberry',
+           'Nectarine', 'Nectarine Flat', 'Nut Forest', 'Nut Pecan', 'Onion Red',
+           'Onion Red Peeled', 'Onion White', 'Orange', 'Papaya', 'Passion Fruit',
+           'Peach', 'Peach Flat', 'Peach 2', 'Pear', 'Pear Abate',
+           'Pear Forelle', 'Pear Kaiser', 'Pear Monster', 'Pear Red', 'Pear Stone',
+           'Pear Williams', 'Pear 2', 'Pepino', 'Pepper Green', 'Pepper Orange',
+           'Pepper Red', 'Pepper Yellow', 'Physalis', 'Physalis with Husk', 'Pineapple',
+           'Pineapple Mini', 'Pitahaya Red', 'Plum', 'Plum 2',  'Plum 3',
+           'Pomegranate', 'Pomelo Sweetie', 'Potato Red', 'Potato Red Washed', 'Potato Sweet',
+           'Potato White', 'Quince', 'Rambutan', 'Raspberry', 'Redcurrant',
+           'Salak', 'Strawberry', 'Strawberry Wedge', 'Tamarillo', 'Tangelo',
+           'Tomato Cherry Red', 'Tomato Heart', 'Tomato Maroon', 'Tomato Not Ripened', 'Tomato Yellow',
+           'Tomato 1', 'Tomato 2', 'Tomato 3', 'Tomato 4', 'Walnut', 'Watermelon']
 
 @app.route("/")
 def index():
@@ -70,6 +77,7 @@ def upload():
     #
     # # on fait disparaître l'aperçu.
     # camera.stop_preview()
+    global prediction, filename, i
     target = os.path.join(APP_ROOT, 'images/')
     # target = os.path.join(APP_ROOT, 'static/')
     print(target)
@@ -96,7 +104,8 @@ def upload():
         # new_model = load_model('model.h5')
 
         # ce model est entrainer sur 131 classe
-        new_model = load_model('inceptionDernier.h5')
+        # new_model = load_model('inceptionDernier.h5')
+        new_model = load_model('8juilletMoreSoir.h5')
         # new_model = load_model('dernierModelCnnNewMoreFruit.h5')
 
         # mon autre model entrainer sur 65 classes
@@ -108,9 +117,9 @@ def upload():
         # pour le model.h5, model5.h5, model13
         # test_image = image.load_img('images\\' + filename, target_size=(64, 64))
         # pour le model13.h5, model65.h5
-        # test_image = image.load_img('images\\' + filename, target_size=(100, 100))
+        test_image = image.load_img('images\\' + filename, target_size=(100, 100))
         #pour les model inception
-        test_image = image.load_img('images\\' + filename, target_size=(299, 299))
+        # test_image = image.load_img('images\\' + filename, target_size=(299, 299))
         test_image = image.img_to_array(test_image)
         test_image = np.expand_dims(test_image, axis=0)
         result = new_model.predict(test_image)

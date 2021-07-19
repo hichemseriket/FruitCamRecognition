@@ -77,10 +77,10 @@ Validation = test_datagen.flow_from_directory('fruits-360/Test',
                                               class_mode='categorical')
 
 history = classifier.fit_generator(Training,
-                                   steps_per_epoch=len(Training),
+                                   steps_per_epoch=len(Training)/6,
                                    epochs=25,
                                    validation_data=Validation,
-                                   validation_steps=len(Validation))
+                                   validation_steps=len(Validation)/6)
 classifier.summary()
 #
 # # Plotting graphs
@@ -130,7 +130,7 @@ plt.legend()
 plt.show()
 
 
-classifier.save("dernierModelCnnNewMoreFruit.h5")
+classifier.save("8juilletMoreSoir.h5")
 print("model créé !")
 
 # 131 fruit
@@ -160,60 +160,61 @@ name_of_classes = ['Apple Braeburn', 'Apple Crimson Snow', 'Apple Golden 1', 'Ap
                    'Tomato Heart', 'Tomato Maroon', 'Tomato Not Ripened', 'Tomato Yellow', 'Tomato 1', 'Tomato 2',
                    'Tomato 3', 'Tomato 4', 'Walnut', 'Watermelon']
 
-test_image = image.load_img('img/banana.jpg', target_size=(100, 100))
+# test_image = image.load_img('img/banana.jpg', target_size=(100, 100))
+test_image = image.load_img('fruits-360/Test/Banana/13_100.jpg', target_size=(100, 100))
 test_image = image.img_to_array(test_image)
 test_image = np.expand_dims(test_image, axis=0)
 result = classifier.predict(test_image)
 Training.class_indices
-img = 'img/banana.jpg'
+img = 'fruits-360/Test/Banana/13_100.jpg'
 Image.open(img)
 
-test_image = image.load_img('img/hb.jpg', target_size=(100, 100))
+test_image = image.load_img('fruits-360/Test/Huckleberry/71_100.jpg', target_size=(100, 100))
 test_image = image.img_to_array(test_image)
 test_image = np.expand_dims(test_image, axis=0)
 result = classifier.predict(test_image)
 Training.class_indices
-img = 'img/hb.jpg'
+img = 'fruits-360/Test/Huckleberry/71_100.jpg'
 Image.open(img)
 
-test_image = image.load_img('img/lychee.jpg', target_size=(100, 100))
+test_image = image.load_img('fruits-360/Test/Lychee/9_100.jpg', target_size=(100, 100))
 test_image = image.img_to_array(test_image)
 test_image = np.expand_dims(test_image, axis=0)
 result = classifier.predict(test_image)
 Training.class_indices
-img = 'img/lychee.jpg'
+img = 'fruits-360/Test/Lychee/9_100.jpg'
 Image.open(img)
 
-test_image = image.load_img('img/coco.jpg', target_size=(100, 100))
+test_image = image.load_img('fruits-360/Test/Cocos/1_100.jpg', target_size=(100, 100))
 test_image = image.img_to_array(test_image)
 test_image = np.expand_dims(test_image, axis=0)
 result = classifier.predict(test_image)
 Training.class_indices
-img = 'img/coco.jpg'
+img = 'fruits-360/Test/Cocos/1_100.jpg'
 Image.open(img)
 
-test_image = image.load_img('img/gapp2.jpg', target_size=(100, 100))
+test_image = image.load_img('fruits-360/Test/Grape Blue/19_100.jpg', target_size=(100, 100))
 test_image = image.img_to_array(test_image)
 test_image = np.expand_dims(test_image, axis=0)
 result = classifier.predict(test_image)
 Training.class_indices
-img = 'img/gapp2.jpg'
+img = 'fruits-360/Test/Grape Blue/19_100.jpg'
 Image.open(img)
 
-test_image = image.load_img('img/cf.jpg', target_size=(100, 100))
+test_image = image.load_img('fruits-360/Test/Cactus fruit/16_100.jpg', target_size=(100, 100))
 test_image = image.img_to_array(test_image)
 test_image = np.expand_dims(test_image, axis=0)
 result = classifier.predict(test_image)
 Training.class_indices
-img = 'img/cf.jpg'
+img = 'fruits-360/Test/Cactus fruit/16_100.jpg'
 Image.open(img)
 
-test_image = image.load_img('img/lmn.jpg', target_size=(100, 100))
+test_image = image.load_img('fruits-360/Test/Lemon/3_100.jpg', target_size=(100, 100))
 test_image = image.img_to_array(test_image)
 test_image = np.expand_dims(test_image, axis=0)
 result = classifier.predict(test_image)
 Training.class_indices
-img = 'img/lmn.jpg'
+img = 'fruits-360/Test/Lemon/3_100.jpg'
 Image.open(img)
 
 # test_image = image.load_img('banana.jpg', target_size=(100, 100))
@@ -228,4 +229,7 @@ for i in range(no_of_classes):
     if (result[0][i] == 1.0):
         img_path = 'fruits-360/Training' + name_of_classes[i] + '/2_100.jpg'
         print('Predicted:', name_of_classes[i])
-Image.open(img_path)
+        Image.open(img_path)
+
+
+# j'ai modifié les data en entréé pour les test jen ai directement mis les data depuis fruit-360/Test

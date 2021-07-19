@@ -74,11 +74,12 @@ classes = ['Apple Braeburn', 'Apple Crimson Snow', 'Apple Golden 1', 'Apple Gold
            'Orange', 'Papaya', 'Passion Fruit', 'Peach', 'Peach Flat', 'Peach 2', 'Pear', 'Pear Abate',
            'Pear Forelle', 'Pear Kaiser', 'Pear Monster', 'Pear Red', 'Pear Stone', 'Pear Williams', 'Pear 2', 'Pepino',
            'Pepper Green', 'Pepper Orange', 'Pepper Red', 'Pepper Yellow', 'Physalis', 'Physalis with Husk',
-           'Pineapple', 'Pineapple Mini', 'Pitahaya Red', 'Plum', 'Plum 2',  'Plum 3', 'Pomegranate', 'Pomelo Sweetie',
+           'Pineapple', 'Pineapple Mini', 'Pitahaya Red', 'Plum', 'Plum 2', 'Plum 3', 'Pomegranate', 'Pomelo Sweetie',
            'Potato Red', 'Potato Red Washed', 'Potato Sweet', 'Potato White', 'Quince', 'Rambutan', 'Raspberry',
            'Redcurrant', 'Salak', 'Strawberry', 'Strawberry Wedge', 'Tamarillo', 'Tangelo', 'Tomato Cherry Red',
            'Tomato Heart', 'Tomato Maroon', 'Tomato Not Ripened', 'Tomato Yellow', 'Tomato 1', 'Tomato 2',
            'Tomato 3', 'Tomato 4', 'Walnut', 'Watermelon']
+
 
 # # pour reconnaitre uniquement 6 fruit j'ai mis ça en place,
 # cela fonctionne plutot bien avec les deux appli de prediction, le model pour ces 5 fruit est : model5.h5
@@ -199,6 +200,7 @@ def FruitRec(prev_image):
     root.cap.release()
     show_frame(frame2)
 
+
     frame2.backButton = Button(frame2, width=10, text="Back", command=lambda: createwidgets(frame1))
     frame2.backButton.grid(row=1, column=0, padx=10, pady=10)
 
@@ -241,11 +243,12 @@ def Predict(prev_image):
     new_model.summary()
     test_image = image.load_img(
         prev_image,
+        # le 64x64 pour les models entrainer avec un data qui contient des image taille 64x64
         # target_size=(64, 64))
         # a utilisé pour les model venu de cnn-new-more-fruit
         target_size=(100, 100))
-        # à utilisé quand c'est le model inception target 299, 299
-        # target_size=(299, 299))
+    # à utilisé quand c'est le model inception target 299, 299
+    # target_size=(299, 299))
     test_image = image.img_to_array(test_image)
     test_image = np.expand_dims(test_image, axis=0)
     result = new_model.predict(test_image)
@@ -254,7 +257,7 @@ def Predict(prev_image):
 
         if result1[i] == 1.:
             break
-    prediction = classes[i]
+        prediction = classes[i]
 
     def excel():
         list.append(prediction)

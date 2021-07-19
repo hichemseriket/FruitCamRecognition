@@ -1,17 +1,13 @@
-
 # read in libraries
+import os
+
+import numpy as np
 import tensorflow as tf
 from tensorflow.keras import backend, models, layers, optimizers
-import numpy as np
-from tensorflow.keras.layers import GlobalAveragePooling2D
 from tensorflow.keras.callbacks import EarlyStopping
-from sklearn.model_selection import train_test_split
-from tensorflow.keras.utils import plot_model
-from IPython.display import display
-from PIL import Image
+from tensorflow.keras.layers import GlobalAveragePooling2D
 from tensorflow.keras.preprocessing.image import ImageDataGenerator
-import os, shutil
-from tensorflow.keras.models import Model
+from tensorflow.keras.utils import plot_model
 
 np.random.seed(42)
 
@@ -58,7 +54,7 @@ dense_1 = layers.Dense(512, activation='relu')(pool)
 # je modifi ici le nombre de classes
 output = layers.Dense(131, activation='softmax')(dense_1)
 
-# Create an example of the Archictecture to plot on a graph
+# Create an example of the Architecture to plot on a graph
 model_example = models.Model(inputs=conv_base.input, outputs=output)
 # plot graph
 plot_model(model_example)
@@ -77,7 +73,7 @@ from tensorflow.python.client import device_lib
 print(device_lib.list_local_devices())
 
 # Execute the model with fit_generator within the while loop utilizing the discovered GPU
-import tensorflow as tf
+# import tensorflow as tf
 
 with tf.device("/device:GPU:0"):
     history = model_InceptionV3.fit_generator(
@@ -119,11 +115,9 @@ plt.show()
 test_loss, test_acc = model_InceptionV3.evaluate_generator(test_generator)
 print('Model testing accuracy/testing loss:', test_acc, " ", test_loss)
 
-
 # j'essaie d'avoir en sortie un model sauvgarder que je pourrait utlisé ou je veux
 model_InceptionV3.save("inceptionDernier.h5")
 print("model créé !")
-
 
 ##################################################################################################
 # j'ai rajouté le serveur ici pour exploiter le model inception
@@ -226,5 +220,8 @@ print("model créé !")
 # if __name__ == "__main__":
 #     app.run(debug=False)
 
-    ########################################################################################
+########################################################################################
 
+
+# hello I would need to solve a machine learning problem, a little complicated
+# indeed I would like to be able to integrate into my neural network, a q learning algorithm
