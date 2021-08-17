@@ -20,9 +20,12 @@
 
 ##########################################################
 import tkinter as tk
+from random import uniform
+
 import cv2
 import tensorflow as tf
 import openpyxl as xl
+from numpy.random import random
 
 from openpyxl.chart import BarChart, Reference
 from openpyxl import Workbook
@@ -31,7 +34,7 @@ from typing import Container
 from tkinter import *
 from PIL import Image, ImageTk
 from datetime import datetime
-from tkinter import messagebox, filedialog
+from tkinter import messagebox, filedialog, PhotoImage, Canvas
 import numpy as np
 from keras.preprocessing import image
 from keras.models import load_model
@@ -55,66 +58,84 @@ from keras.models import load_model
 #            'Pear', 'Pear Abate', 'Pear Monster', 'Pear Williams', 'Pepino',
 #            'Pineapple', 'Pitahaya Red', 'Plum', 'Pomegranate', 'Quince',
 #            'Raspberry', 'Salak', 'Strawberry', 'Tamarillo', 'Tangelo']
-
+#
 
 # 131 fruit
-classes = ['Apple Braeburn', 'Apple Crimson Snow', 'Apple Golden 1', 'Apple Golden 2', 'Apple Golden 3',
-           'Apple Granny Smith', 'Apple Pink Lady', 'Apple Red Delicious', 'Apple Red Yellow 1', 'Apple Red Yellow 2',
-           'Apple Red 1', 'Apple Red 2', 'Apple Red 3', 'Apricot', 'Avocado', 'Avocado ripe', 'Banana',
-           'Banana Lady Finger', 'Banana Red', 'Beetroot', 'Blueberry', 'Cactus fruit',
-           'Cantaloupe 1', 'Cantaloupe 2', 'Carambula', 'Cauliflower',
-           'Cherry Rainier', 'Cherry Wax Black', 'Cherry Wax Red', 'Cherry Wax Yellow',
-           'Cherry 1', 'Cherry 2', 'Chestnut', 'Clementine', 'Cocos', 'Corn', 'Corn Husk', 'Cucumber Ripe',
-           'Cucumber Ripe 2', 'Dates', 'Eggplant', 'Fig', 'Ginger Root', 'Granadilla', 'Grape Blue',
-           'Grape Pink', 'Grape White', 'Grape White 2', 'Grape White 3', 'Grape White 4',
-           'Grapefruit Pink', 'Grapefruit White', 'Guava', 'Hazelnut', 'Huckleberry',
-           'Kaki', 'Kiwi', 'Kohlrabi', 'Kumquats', 'Lemon', 'Lemon Meyer', 'Limes', 'Lychee',
-           'Mandarine', 'Mango', 'Mango Red', 'Mangostan', 'Maracuja', 'Melon Piel de Sapo', 'Mulberry',
-           'Nectarine', 'Nectarine Flat', 'Nut Forest', 'Nut Pecan', 'Onion Red', 'Onion Red Peeled', 'Onion White',
-           'Orange', 'Papaya', 'Passion Fruit', 'Peach', 'Peach Flat', 'Peach 2', 'Pear', 'Pear Abate',
-           'Pear Forelle', 'Pear Kaiser', 'Pear Monster', 'Pear Red', 'Pear Stone', 'Pear Williams', 'Pear 2', 'Pepino',
-           'Pepper Green', 'Pepper Orange', 'Pepper Red', 'Pepper Yellow', 'Physalis', 'Physalis with Husk',
-           'Pineapple', 'Pineapple Mini', 'Pitahaya Red', 'Plum', 'Plum 2', 'Plum 3', 'Pomegranate', 'Pomelo Sweetie',
-           'Potato Red', 'Potato Red Washed', 'Potato Sweet', 'Potato White', 'Quince', 'Rambutan', 'Raspberry',
-           'Redcurrant', 'Salak', 'Strawberry', 'Strawberry Wedge', 'Tamarillo', 'Tangelo', 'Tomato Cherry Red',
-           'Tomato Heart', 'Tomato Maroon', 'Tomato Not Ripened', 'Tomato Yellow', 'Tomato 1', 'Tomato 2',
-           'Tomato 3', 'Tomato 4', 'Walnut', 'Watermelon']
+# classes = ['Apple Braeburn', 'Apple Crimson Snow', 'Apple Golden 1', 'Apple Golden 2', 'Apple Golden 3',
+#            'Apple Granny Smith', 'Apple Pink Lady', 'Apple Red Delicious', 'Apple Red Yellow 1', 'Apple Red Yellow 2',
+#            'Apple Red 1', 'Apple Red 2', 'Apple Red 3', 'Apricot', 'Avocado', 'Avocado ripe', 'Banana',
+#            'Banana Lady Finger', 'Banana Red', 'Beetroot', 'Blueberry', 'Cactus fruit',
+#            'Cantaloupe 1', 'Cantaloupe 2', 'Carambula', 'Cauliflower',
+#            'Cherry Rainier', 'Cherry Wax Black', 'Cherry Wax Red', 'Cherry Wax Yellow',
+#            'Cherry 1', 'Cherry 2', 'Chestnut', 'Clementine', 'Cocos', 'Corn', 'Corn Husk', 'Cucumber Ripe',
+#            'Cucumber Ripe 2', 'Dates', 'Eggplant', 'Fig', 'Ginger Root', 'Granadilla', 'Grape Blue',
+#            'Grape Pink', 'Grape White', 'Grape White 2', 'Grape White 3', 'Grape White 4',
+#            'Grapefruit Pink', 'Grapefruit White', 'Guava', 'Hazelnut', 'Huckleberry',
+#            'Kaki', 'Kiwi', 'Kohlrabi', 'Kumquats', 'Lemon', 'Lemon Meyer', 'Limes', 'Lychee',
+#            'Mandarine', 'Mango', 'Mango Red', 'Mangostan', 'Maracuja', 'Melon Piel de Sapo', 'Mulberry',
+#            'Nectarine', 'Nectarine Flat', 'Nut Forest', 'Nut Pecan', 'Onion Red', 'Onion Red Peeled', 'Onion White',
+#            'Orange', 'Papaya', 'Passion Fruit', 'Peach', 'Peach Flat', 'Peach 2', 'Pear', 'Pear Abate',
+#            'Pear Forelle', 'Pear Kaiser', 'Pear Monster', 'Pear Red', 'Pear Stone', 'Pear Williams', 'Pear 2', 'Pepino',
+#            'Pepper Green', 'Pepper Orange', 'Pepper Red', 'Pepper Yellow', 'Physalis', 'Physalis with Husk',
+#            'Pineapple', 'Pineapple Mini', 'Pitahaya Red', 'Plum', 'Plum 2', 'Plum 3', 'Pomegranate', 'Pomelo Sweetie',
+#            'Potato Red', 'Potato Red Washed', 'Potato Sweet', 'Potato White', 'Quince', 'Rambutan', 'Raspberry',
+#            'Redcurrant', 'Salak', 'Strawberry', 'Strawberry Wedge', 'Tamarillo', 'Tangelo', 'Tomato Cherry Red',
+#            'Tomato Heart', 'Tomato Maroon', 'Tomato Not Ripened', 'Tomato Yellow', 'Tomato 1', 'Tomato 2',
+#            'Tomato 3', 'Tomato 4', 'Walnut', 'Watermelon']
 
 
 # # pour reconnaitre uniquement 6 fruit j'ai mis ça en place,
 # cela fonctionne plutot bien avec les deux appli de prediction, le model pour ces 5 fruit est : model5.h5
-# classes = ['apple', 'banana', 'orange', 'litchi', 'maracuja']
+classes = ['apple', 'banana', 'litchi', 'maracuja', 'orange']
 
+
+root = tk.Tk()
+w, h = 640, 480
+# root['bg']='green'
+# root.configure(bg='green')
+a = root.state('zoomed')
+# a = int(a)
+root.title('Seriket-Hichem')
+temp_img = tk.PhotoImage(file='static/appart.png')
+zx = int(w / temp_img.width())
+zy = int(h / temp_img.height())
+background_img = temp_img.zoom(zx, zy)
+
+can = tk.Canvas(root, width=w, height=h)
+can.grid()
+
+can.create_image(320, 240, image=temp_img)
 
 def show_frame(frame):
     frame.tkraise()
 
 
 def createwidgets(frame):
+
     root.cap = cv2.VideoCapture(0, cv2.CAP_DSHOW)
     width_1, height_1 = 640, 480
     root.cap.set(cv2.CAP_PROP_FRAME_WIDTH, width_1)
     root.cap.set(cv2.CAP_PROP_FRAME_HEIGHT, height_1)
     show_frame(frame1)
 
-    frame.upload = Button(frame, text="Predict Uploaded", bg="#B5EAD7", command=lambda: FruitRec(openDirectory),
+    frame.upload = Button(frame, text="Predict Uploaded", bg="#eab5c8", command=lambda: FruitRec(openDirectory),
                           font=('Courier New', 15), width=16)
     frame.upload.grid(row=4, column=4)
 
-    frame.predict = Button(frame, text="Predict Captured", bg="#B5EAD7", command=lambda: FruitRec(imgName),
+    frame.predict = Button(frame, text="Predict Captured", bg="#eab5c8", command=lambda: FruitRec(imgName),
                            font=('Courier New', 15), width=16)
     frame.predict.grid(row=4, column=5)
 
     frame.cameraLabel = Label(frame, bg="steelblue", borderwidth=3, relief="groove")
     frame.cameraLabel.grid(row=2, column=1, padx=10, pady=10, columnspan=2)
 
-    frame.captureBTN = Button(frame, text="CAPTURE", command=Capture, bg="#B5EAD7", font=('Courier New', 15), width=20)
+    frame.captureBTN = Button(frame, text="Capture", command=Capture, bg="#B5EAD7", font=('Courier New', 15), width=20)
     frame.captureBTN.grid(row=4, column=1, padx=10, pady=10)
 
-    frame.CAMBTN = Button(frame, text="STOP CAMERA", command=StopCAM, bg="#B5EAD7", font=('Courier New', 15), width=13)
+    frame.CAMBTN = Button(frame, text="Stop Camera", command=StopCAM, bg="#B5EAD7", font=('Courier New', 15), width=13)
     frame.CAMBTN.grid(row=4, column=2)
 
-    frame.previewlabel = Label(frame, fg="black", text=" quelle est ce fruit !", font=('Courier New', 20))
+    frame.previewlabel = Label(frame, fg="black", text=" quel est ce fruit !",bg="#79d988", font=('Courier New', 20))
     frame.previewlabel.grid(row=1, column=1, padx=10, pady=10, columnspan=2)
 
     frame.imageLabel = Label(frame, bg="steelblue", borderwidth=3, relief="groove")
@@ -123,7 +144,7 @@ def createwidgets(frame):
     frame.openImageEntry = Entry(frame, width=55, textvariable=imagePath)
     frame.openImageEntry.grid(row=3, column=4, padx=10, pady=10)
 
-    frame.openImageButton = Button(frame, width=10, text="BROWSE", command=imageBrowse)
+    frame.openImageButton = Button(frame, width=10, text="BROWSE", command=imageBrowse, bg="#eab5c8", font=('Courier New', 15))
     frame.openImageButton.grid(row=3, column=5, padx=10, pady=10)
 
     ShowFeed()
@@ -234,26 +255,35 @@ def Predict(prev_image):
     # new_model = load_model('modelInception.h5')
     # new_model = load_model('inceptionDernier.h5')
     # ce model fonctionne quelques fois avec l'upload mais avec la camera direct
-    new_model = load_model('dernierModelCnnNewMoreFruit.h5')
+    # new_model = load_model('dernierModelCnnNewMoreFruit.h5')
     # model plutot bon avec les 5 fruit ,
     # oublie pas de commenté les classes et de decommenté les classes contenant que les 5 fruit
     # new_model = load_model('model5.h5')
     # model avec 13 fruit decommenté la ligne 40
     # new_model = load_model('model13.h5')
+    # mon model de 5 fruit uniquement
+    # new_model = load_model('model.h5')
+
+    # new_model = load_model('22juilletcnnSimple.h5')
+    new_model = load_model('model.h5')
+
     new_model.summary()
     test_image = image.load_img(
         prev_image,
         # le 64x64 pour les models entrainer avec un data qui contient des image taille 64x64
-        # target_size=(64, 64))
+        target_size=(64, 64))
         # a utilisé pour les model venu de cnn-new-more-fruit
-        target_size=(100, 100))
+        # target_size=(100, 100))
     # à utilisé quand c'est le model inception target 299, 299
     # target_size=(299, 299))
     test_image = image.img_to_array(test_image)
     test_image = np.expand_dims(test_image, axis=0)
     result = new_model.predict(test_image)
     result1 = result[0]
-    for i in range(36):
+    # for i in range(65):
+    for i in range(5):
+    # range a passer a 5 si model de 5 fruit
+    # for i in range(5):
 
         if result1[i] == 1.:
             break
@@ -267,10 +297,11 @@ def Predict(prev_image):
         messagebox.showinfo("SUCCESS", f'''INFORMATION RECORDED.
 PRESS TRY AGAIN TO CAPTURE ANOTHER''')
 
+    # Force = {random()}
     food = f'''
     Fruit :{prediction}
- Force :ere
-    Prix: erere  '''
+    Force = {uniform(0, 180)} en degré
+    Prix: {uniform(2.5, 10.0)} en euro '''
 
     frame2.previewlabel = Label(frame2, fg="black", text=food, font=('Courier New', 15))
     frame2.previewlabel.grid(row=3, column=6, padx=10, pady=10, columnspan=3)
@@ -279,14 +310,21 @@ PRESS TRY AGAIN TO CAPTURE ANOTHER''')
                            font=('Courier New', 15), width=10)
     frame2.cancel.grid(row=4, column=6)
 
-    frame2.save = Button(frame2, text="Save", bg="#B5EAD7", command=excel,
-                         font=('Courier New', 15), width=10)
-    frame2.save.grid(row=4, column=7)
+    # frame2.save = Button(frame2, text="Save", bg="#B5EAD7", command=excel,
+    #                      font=('Courier New', 15), width=10)
+    # frame2.save.grid(row=4, column=7)
 
 
-root = tk.Tk()
-root.state('zoomed')
-root.title('Seriket-Hichem')
+
+#set window color
+# gui = Tk(className='Python Examples - Window Color')
+# # set window size
+# gui.geometry("400x200")
+#
+# #set window color
+# gui.configure(bg='blue')
+
+# root.mainloop()
 
 root.rowconfigure(0, weight=1)
 root.columnconfigure(0, weight=1)

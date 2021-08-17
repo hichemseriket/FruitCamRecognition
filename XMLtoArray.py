@@ -3,6 +3,7 @@ import numpy as np
 import glob
 import cv2
 
+
 # je lui donne deux parametre le repertoire ou il ya les image et le fichier xml, et l'autre pour resize si j'ai envie les image en sortie
 def xml_to_dataset(dir, size=None):
     tab_image = []
@@ -21,7 +22,7 @@ def xml_to_dataset(dir, size=None):
             # for obj in objects:
             objects = doc['annotation']['object'] if type(doc['annotation']['object']) == list else [
                 doc['annotation']['object']]
-            for obj in objects :
+            for obj in objects:
                 xmin = int(obj['bndbox']['xmin'])
                 xmax = int(obj['bndbox']['xmax'])
                 ymin = int(obj['bndbox']['ymin'])
@@ -42,6 +43,7 @@ def xml_to_dataset(dir, size=None):
 
 # tab_image, tab_label, tab_one_hot = xml_to_dataset("./", (32, 32))
 tab_image, tab_label, tab_one_hot = xml_to_dataset("./img", None)
+# tab_image, tab_label, tab_one_hot = xml_to_dataset("./fruits-360/Test/Lemon", None)
 
 for i in range(len(tab_image)):
     cv2.imshow('image', tab_image[i])

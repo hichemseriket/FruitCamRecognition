@@ -35,3 +35,15 @@ input
 bananedetecteur.py
 modelInception.h5
 *.h5
+07
+output
+7fruits.xml
+dernierModelCnnNewMoreFruit.h5
+inceptionDernier.h5
+*.xml
+juilletCnnNewMoreFruit.h5
+juilletCnnNewMoreFruit1.h5
+08juillet.h5
+08juilletSoir.h5
+08juilletSoirPlusCouche.h5
+

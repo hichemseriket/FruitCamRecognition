@@ -20,27 +20,23 @@ from PIL import Image
 
 no_of_classes = 131
 
-# Initialising the CNN
+# initialisation du CNN
 classifier = Sequential()
-
-# Step 1 - Convolution
+# etape 1 - Convolution
 classifier.add(Conv2D(32, (5, 5), input_shape=(100, 100, 3), activation='relu'))
-
-# Step 2 - Pooling
+# etape 2 - Pooling
 classifier.add(MaxPooling2D(pool_size=(2, 2), strides=2))
-
-# Adding a second convolutional layer
+# Ajout de la deuxième couche convolutional
 classifier.add(Conv2D(64, (5, 5), activation='relu'))
 classifier.add(MaxPooling2D(pool_size=(2, 2), strides=2))
-
-# Adding a third convolutional layer
+# Ajout d'une troisième couche convolutional
 classifier.add(Conv2D(128, (5, 5), activation='relu'))
 classifier.add(MaxPooling2D(pool_size=(2, 2), strides=2))
-
-# Adding a third convolutional layer
+# Ajout d'une troisième couche convolutional
 classifier.add(Conv2D(256, (5, 5), activation='relu'))
 classifier.add(Dropout(0.25))
 classifier.add(MaxPooling2D(pool_size=(2, 2), strides=2))
+
 
 # Step 3 - Flattening
 classifier.add(Flatten())
@@ -49,6 +45,7 @@ classifier.add(Flatten())
 classifier.add(Dense(units=128, activation='relu'))
 classifier.add(Dropout(0.25))
 classifier.add(Dense(units=128, activation='relu'))
+
 classifier.add(Dropout(0.25))
 classifier.add(Dense(units=no_of_classes, activation='softmax'))
 
@@ -113,123 +110,123 @@ acc_values = history_dict['accuracy']
 val_acc_values = history_dict['val_accuracy']
 epochs = range(1, len(history_dict['accuracy']) + 1)
 # Plot the training/validation loss
-plt.plot(epochs, loss_values, 'bo', label='Training loss')
-plt.plot(epochs, val_loss_values, 'b', label='Validation loss')
-plt.title('Training and validation loss')
+plt.plot(epochs, loss_values, 'bo', label='Perte à l\'entrainement')
+plt.plot(epochs, val_loss_values, 'b', label='Perte à la Validation')
+plt.title(' Perte lors de l\'entrainement et lors de la validation')
 plt.xlabel('Epochs')
-plt.ylabel('Loss')
+plt.ylabel('Perte')
 plt.legend()
 plt.show()
 # Plot the training/validation accuracy
-plt.plot(epochs, acc_values, 'bo', label='Training accuracy')
-plt.plot(epochs, val_acc_values, 'b', label='Validation accuracy')
-plt.title('Training and validation accuracy')
+plt.plot(epochs, acc_values, 'bo', label='Precision de l\'entrainement')
+plt.plot(epochs, val_acc_values, 'b', label='Precision de la validation')
+plt.title('Précision de l\'entrainement et de la validation')
 plt.xlabel('Epochs')
-plt.ylabel('Accuracy')
+plt.ylabel('Precision')
 plt.legend()
 plt.show()
 
 
-classifier.save("8juilletMoreSoir.h5")
+classifier.save("22juillet.h5")
 print("model créé !")
 
 # 131 fruit
-name_of_classes = ['Apple Braeburn', 'Apple Crimson Snow', 'Apple Golden 1', 'Apple Golden 2', 'Apple Golden 3',
-                   'Apple Granny Smith', 'Apple Pink Lady', 'Apple Red Delicious', 'Apple Red Yellow 1',
-                   'Apple Red Yellow 2',
-                   'Apple Red 1', 'Apple Red 2', 'Apple Red 3', 'Apricot', 'Avocado', 'Avocado ripe', 'Banana',
-                   'Banana Lady Finger', 'Banana Red', 'Beetroot', 'Blueberry', 'Cactus fruit',
-                   'Cantaloupe 1', 'Cantaloupe 2', 'Carambula', 'Cauliflower',
-                   'Cherry Rainier', 'Cherry Wax Black', 'Cherry Wax Red', 'Cherry Wax Yellow',
-                   'Cherry 1', 'Cherry 2', 'Chestnut', 'Clementine', 'Cocos', 'Corn', 'Corn Husk', 'Cucumber Ripe',
-                   'Cucumber Ripe 2', 'Dates', 'Eggplant', 'Fig', 'Ginger Root', 'Granadilla', 'Grape Blue',
-                   'Grape Pink', 'Grape White', 'Grape White 2', 'Grape White 3', 'Grape White 4',
-                   'Grapefruit Pink', 'Grapefruit White', 'Guava', 'Hazelnut', 'Huckleberry',
-                   'Kaki', 'Kiwi', 'Kohlrabi', 'Kumquats', 'Lemon', 'Lemon Meyer', 'Limes', 'Lychee',
-                   'Mandarine', 'Mango', 'Mango Red', 'Mangostan', 'Maracuja', 'Melon Piel de Sapo', 'Mulberry',
-                   'Nectarine', 'Nectarine Flat', 'Nut Forest', 'Nut Pecan', 'Onion Red', 'Onion Red Peeled',
-                   'Onion White',
-                   'Orange', 'Papaya', 'Passion Fruit', 'Peach', 'Peach Flat', 'Peach 2', 'Pear', 'Pear Abate',
-                   'Pear Forelle', 'Pear Kaiser', 'Pear Monster', 'Pear Red', 'Pear Stone', 'Pear Williams', 'Pear 2',
-                   'Pepino',
-                   'Pepper Green', 'Pepper Orange', 'Pepper Red', 'Pepper Yellow', 'Physalis', 'Physalis with Husk',
-                   'Pineapple', 'Pineapple Mini', 'Pitahaya Red', 'Plum', 'Plum 2', 'Plum 3', 'Pomegranate',
-                   'Pomelo Sweetie',
-                   'Potato Red', 'Potato Red Washed', 'Potato Sweet', 'Potato White', 'Quince', 'Rambutan', 'Raspberry',
-                   'Redcurrant', 'Salak', 'Strawberry', 'Strawberry Wedge', 'Tamarillo', 'Tangelo', 'Tomato Cherry Red',
-                   'Tomato Heart', 'Tomato Maroon', 'Tomato Not Ripened', 'Tomato Yellow', 'Tomato 1', 'Tomato 2',
-                   'Tomato 3', 'Tomato 4', 'Walnut', 'Watermelon']
-
-# test_image = image.load_img('img/banana.jpg', target_size=(100, 100))
-test_image = image.load_img('fruits-360/Test/Banana/13_100.jpg', target_size=(100, 100))
-test_image = image.img_to_array(test_image)
-test_image = np.expand_dims(test_image, axis=0)
-result = classifier.predict(test_image)
-Training.class_indices
-img = 'fruits-360/Test/Banana/13_100.jpg'
-Image.open(img)
-
-test_image = image.load_img('fruits-360/Test/Huckleberry/71_100.jpg', target_size=(100, 100))
-test_image = image.img_to_array(test_image)
-test_image = np.expand_dims(test_image, axis=0)
-result = classifier.predict(test_image)
-Training.class_indices
-img = 'fruits-360/Test/Huckleberry/71_100.jpg'
-Image.open(img)
-
-test_image = image.load_img('fruits-360/Test/Lychee/9_100.jpg', target_size=(100, 100))
-test_image = image.img_to_array(test_image)
-test_image = np.expand_dims(test_image, axis=0)
-result = classifier.predict(test_image)
-Training.class_indices
-img = 'fruits-360/Test/Lychee/9_100.jpg'
-Image.open(img)
-
-test_image = image.load_img('fruits-360/Test/Cocos/1_100.jpg', target_size=(100, 100))
-test_image = image.img_to_array(test_image)
-test_image = np.expand_dims(test_image, axis=0)
-result = classifier.predict(test_image)
-Training.class_indices
-img = 'fruits-360/Test/Cocos/1_100.jpg'
-Image.open(img)
-
-test_image = image.load_img('fruits-360/Test/Grape Blue/19_100.jpg', target_size=(100, 100))
-test_image = image.img_to_array(test_image)
-test_image = np.expand_dims(test_image, axis=0)
-result = classifier.predict(test_image)
-Training.class_indices
-img = 'fruits-360/Test/Grape Blue/19_100.jpg'
-Image.open(img)
-
-test_image = image.load_img('fruits-360/Test/Cactus fruit/16_100.jpg', target_size=(100, 100))
-test_image = image.img_to_array(test_image)
-test_image = np.expand_dims(test_image, axis=0)
-result = classifier.predict(test_image)
-Training.class_indices
-img = 'fruits-360/Test/Cactus fruit/16_100.jpg'
-Image.open(img)
-
-test_image = image.load_img('fruits-360/Test/Lemon/3_100.jpg', target_size=(100, 100))
-test_image = image.img_to_array(test_image)
-test_image = np.expand_dims(test_image, axis=0)
-result = classifier.predict(test_image)
-Training.class_indices
-img = 'fruits-360/Test/Lemon/3_100.jpg'
-Image.open(img)
-
-# test_image = image.load_img('banana.jpg', target_size=(100, 100))
+# name_of_classes = ['Apple Braeburn', 'Apple Crimson Snow', 'Apple Golden 1', 'Apple Golden 2', 'Apple Golden 3',
+#                    'Apple Granny Smith', 'Apple Pink Lady', 'Apple Red Delicious', 'Apple Red Yellow 1',
+#                    'Apple Red Yellow 2',
+#                    'Apple Red 1', 'Apple Red 2', 'Apple Red 3', 'Apricot', 'Avocado', 'Avocado ripe', 'Banana',
+#                    'Banana Lady Finger', 'Banana Red', 'Beetroot', 'Blueberry', 'Cactus fruit',
+#                    'Cantaloupe 1', 'Cantaloupe 2', 'Carambula', 'Cauliflower',
+#                    'Cherry Rainier', 'Cherry Wax Black', 'Cherry Wax Red', 'Cherry Wax Yellow',
+#                    'Cherry 1', 'Cherry 2', 'Chestnut', 'Clementine', 'Cocos', 'Corn', 'Corn Husk', 'Cucumber Ripe',
+#                    'Cucumber Ripe 2', 'Dates', 'Eggplant', 'Fig', 'Ginger Root', 'Granadilla', 'Grape Blue',
+#                    'Grape Pink', 'Grape White', 'Grape White 2', 'Grape White 3', 'Grape White 4',
+#                    'Grapefruit Pink', 'Grapefruit White', 'Guava', 'Hazelnut', 'Huckleberry',
+#                    'Kaki', 'Kiwi', 'Kohlrabi', 'Kumquats', 'Lemon', 'Lemon Meyer', 'Limes', 'Lychee',
+#                    'Mandarine', 'Mango', 'Mango Red', 'Mangostan', 'Maracuja', 'Melon Piel de Sapo', 'Mulberry',
+#                    'Nectarine', 'Nectarine Flat', 'Nut Forest', 'Nut Pecan', 'Onion Red', 'Onion Red Peeled',
+#                    'Onion White',
+#                    'Orange', 'Papaya', 'Passion Fruit', 'Peach', 'Peach Flat', 'Peach 2', 'Pear', 'Pear Abate',
+#                    'Pear Forelle', 'Pear Kaiser', 'Pear Monster', 'Pear Red', 'Pear Stone', 'Pear Williams', 'Pear 2',
+#                    'Pepino',
+#                    'Pepper Green', 'Pepper Orange', 'Pepper Red', 'Pepper Yellow', 'Physalis', 'Physalis with Husk',
+#                    'Pineapple', 'Pineapple Mini', 'Pitahaya Red', 'Plum', 'Plum 2', 'Plum 3', 'Pomegranate',
+#                    'Pomelo Sweetie',
+#                    'Potato Red', 'Potato Red Washed', 'Potato Sweet', 'Potato White', 'Quince', 'Rambutan', 'Raspberry',
+#                    'Redcurrant', 'Salak', 'Strawberry', 'Strawberry Wedge', 'Tamarillo', 'Tangelo', 'Tomato Cherry Red',
+#                    'Tomato Heart', 'Tomato Maroon', 'Tomato Not Ripened', 'Tomato Yellow', 'Tomato 1', 'Tomato 2',
+#                    'Tomato 3', 'Tomato 4', 'Walnut', 'Watermelon']
+#
+# # test_image = image.load_img('img/banana.jpg', target_size=(100, 100))
+# test_image = image.load_img('fruits-360/Test/Banana/13_100.jpg', target_size=(100, 100))
 # test_image = image.img_to_array(test_image)
 # test_image = np.expand_dims(test_image, axis=0)
 # result = classifier.predict(test_image)
 # Training.class_indices
-# img = 'banana.jpg'
+# img = 'fruits-360/Test/Banana/13_100.jpg'
 # Image.open(img)
-
-for i in range(no_of_classes):
-    if (result[0][i] == 1.0):
-        img_path = 'fruits-360/Training' + name_of_classes[i] + '/2_100.jpg'
-        print('Predicted:', name_of_classes[i])
-        Image.open(img_path)
-
-
+#
+# test_image = image.load_img('fruits-360/Test/Huckleberry/71_100.jpg', target_size=(100, 100))
+# test_image = image.img_to_array(test_image)
+# test_image = np.expand_dims(test_image, axis=0)
+# result = classifier.predict(test_image)
+# Training.class_indices
+# img = 'fruits-360/Test/Huckleberry/71_100.jpg'
+# Image.open(img)
+#
+# test_image = image.load_img('fruits-360/Test/Lychee/9_100.jpg', target_size=(100, 100))
+# test_image = image.img_to_array(test_image)
+# test_image = np.expand_dims(test_image, axis=0)
+# result = classifier.predict(test_image)
+# Training.class_indices
+# img = 'fruits-360/Test/Lychee/9_100.jpg'
+# Image.open(img)
+#
+# test_image = image.load_img('fruits-360/Test/Cocos/1_100.jpg', target_size=(100, 100))
+# test_image = image.img_to_array(test_image)
+# test_image = np.expand_dims(test_image, axis=0)
+# result = classifier.predict(test_image)
+# Training.class_indices
+# img = 'fruits-360/Test/Cocos/1_100.jpg'
+# Image.open(img)
+#
+# test_image = image.load_img('fruits-360/Test/Grape Blue/19_100.jpg', target_size=(100, 100))
+# test_image = image.img_to_array(test_image)
+# test_image = np.expand_dims(test_image, axis=0)
+# result = classifier.predict(test_image)
+# Training.class_indices
+# img = 'fruits-360/Test/Grape Blue/19_100.jpg'
+# Image.open(img)
+#
+# test_image = image.load_img('fruits-360/Test/Cactus fruit/16_100.jpg', target_size=(100, 100))
+# test_image = image.img_to_array(test_image)
+# test_image = np.expand_dims(test_image, axis=0)
+# result = classifier.predict(test_image)
+# Training.class_indices
+# img = 'fruits-360/Test/Cactus fruit/16_100.jpg'
+# Image.open(img)
+#
+# test_image = image.load_img('fruits-360/Test/Lemon/3_100.jpg', target_size=(100, 100))
+# test_image = image.img_to_array(test_image)
+# test_image = np.expand_dims(test_image, axis=0)
+# result = classifier.predict(test_image)
+# Training.class_indices
+# img = 'fruits-360/Test/Lemon/3_100.jpg'
+# Image.open(img)
+#
+# # test_image = image.load_img('banana.jpg', target_size=(100, 100))
+# # test_image = image.img_to_array(test_image)
+# # test_image = np.expand_dims(test_image, axis=0)
+# # result = classifier.predict(test_image)
+# # Training.class_indices
+# # img = 'banana.jpg'
+# # Image.open(img)
+#
+# for i in range(no_of_classes):
+#     if (result[0][i] == 1.0):
+#         img_path = 'fruits-360/Training' + name_of_classes[i] + '/2_100.jpg'
+#         print('Predicted:', name_of_classes[i])
+#         Image.open(img_path)
+#
+#
 # j'ai modifié les data en entréé pour les test jen ai directement mis les data depuis fruit-360/Test

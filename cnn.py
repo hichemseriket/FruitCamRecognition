@@ -17,11 +17,16 @@ from keras.layers import Flatten
 from keras.layers import Dense
 # le pooling pour encore rendre limage plus petite et les calcul plus rapide
 from keras.layers import MaxPooling2D
+from keras.layers import Dropout
+
 from keras.preprocessing import image
 import numpy as np
 import matplotlib.pyplot as plt
 from PIL import Image
 # step1 Initializing CNN
+
+no_of_classes = 131
+
 # j'initialise mon objet ici mon objet est classifier
 classifier = Sequential()
 
@@ -52,7 +57,7 @@ classifier.add(Convolution2D(128, (3, 3), activation='relu'))
 classifier.add(MaxPooling2D(pool_size=(2, 2)))
 
 classifier.add(Convolution2D(256, (3, 3), activation='relu'))
-
+classifier.add(Dropout(0.25))
 classifier.add(MaxPooling2D(pool_size=(2, 2)))
 
 
@@ -71,15 +76,17 @@ classifier.add(Dense(units=32, activation='relu'))
 classifier.add(Dense(units=64, activation='relu'))
 
 classifier.add(Dense(units=128, activation='relu'))
+classifier.add(Dropout(0.25))
 
 classifier.add(Dense(units=256, activation='relu'))
+classifier.add(Dropout(0.25))
 
 classifier.add(Dense(units=256, activation='relu'))
 # classifier.add(Dense(units=512, activation='relu'))
 
 # le nombre de nouronnes est seulment de 6 car c'est le nombre de mes sorties et il est du au fait que jai que 3 fruit chacun d'entre eux  possede 2 category donc au final j'ai 6 classes
 # la fonction activation ici est softmax car softmax est utilise pour categorical classification
-classifier.add(Dense(units=131, activation='softmax'))
+classifier.add(Dense(units=no_of_classes, activation='softmax'))
 # je recree un model que jentraine uniquement sur 12 classe trop de classe lui a fait perdre la boule
 # classifier.add(Dense(units=12, activation='softmax'))
 
@@ -153,7 +160,7 @@ training_set = train_datagen.flow_from_directory('fruits-360/Training',
                                                  target_size=(100, 100),
                                                  # pareill que lors de linput plus haut donc la largeur et la hauteur
                                                  # de limage
-                                                 batch_size=16,  # Total no. of batches
+                                                 batch_size=32,  # Total no. of batches
                                                  # batch a precisé : il dit il parlera plustard dans la video pourquoi12
                                                  class_mode='categorical')
 # class_mode on va classifier 6 class avec car on sait quon va classé
@@ -175,7 +182,7 @@ test_set = test_datagen.flow_from_directory('fruits-360/Test',
                                             # test_set = test_datagen.flow_from_directory('Validation65',
                                             #                                             target_size=(64, 64),
                                             target_size=(100, 100),
-                                            batch_size=16,
+                                            batch_size=32,
                                             class_mode='categorical')
 
 # luc regard moi stp pourquoi les paramettre samples, nb epoch et nb val pose probleme du coup si je les garde le code
@@ -184,15 +191,40 @@ history = classifier.fit_generator(training_set,
                          # steps_per_epoch= 1225,# Total training images
                          # jai retirer les nombre et les remplacer par la variable lent de mes objet entrain et test et
                          # cela semble fonctionné
-                         steps_per_epoch=(len(training_set)/6),  # Total training images
+                         steps_per_epoch=(len(training_set)/2),  # Total training images
                          epochs=20,  # Total no. of epochs
                          validation_data=test_set,
-                         validation_steps=(len(test_set)/6))  # Total testing images
+                         validation_steps=(len(test_set)/2))  # Total testing images
 
 # jai modifié les parametre qui ne sont plus a jour par des param depuis la doc et je regard le resultat,
 # jai mis epoch a la place de nb_epoch, steps_per_epoch a la place de samples_per_epoch et validation_steps a
 # la place nb_val_samples
 classifier.summary()
+#####################################
+# history_dict = history.history
+# loss_values = history_dict['loss']
+# val_loss_values = history_dict['val_loss']
+# acc_values = history_dict['accuracy']
+# val_acc_values = history_dict['val_accuracy']
+# epochs = range(1, len(history_dict['accuracy']) + 1)
+# # Plot the training/validation loss
+# plt.plot(epochs, loss_values, 'bo', label='Training loss')
+# plt.plot(epochs, val_loss_values, 'b', label='Validation loss')
+# plt.title('Training and validation loss')
+# plt.xlabel('Epochs')
+# plt.ylabel('Loss')
+# plt.legend()
+# plt.show()
+# # Plot the training/validation accuracy
+# plt.plot(epochs, acc_values, 'bo', label='Training accuracy')
+# plt.plot(epochs, val_acc_values, 'b', label='Validation accuracy')
+# plt.title('Training and validation accuracy')
+# plt.xlabel('Epochs')
+# plt.ylabel('Accuracy')
+# plt.legend()
+# plt.show()
+######################################
+
 history_dict = history.history
 loss_values = history_dict['loss']
 val_loss_values = history_dict['val_loss']
@@ -200,28 +232,28 @@ acc_values = history_dict['accuracy']
 val_acc_values = history_dict['val_accuracy']
 epochs = range(1, len(history_dict['accuracy']) + 1)
 # Plot the training/validation loss
-plt.plot(epochs, loss_values, 'bo', label='Training loss')
-plt.plot(epochs, val_loss_values, 'b', label='Validation loss')
-plt.title('Training and validation loss')
+plt.plot(epochs, loss_values, 'bo', label='Perte à l\'entrainement')
+plt.plot(epochs, val_loss_values, 'b', label='Perte à la Validation')
+plt.title(' Perte lors de l\'entrainement et lors de la validation')
 plt.xlabel('Epochs')
-plt.ylabel('Loss')
+plt.ylabel('Perte')
 plt.legend()
 plt.show()
 # Plot the training/validation accuracy
-plt.plot(epochs, acc_values, 'bo', label='Training accuracy')
-plt.plot(epochs, val_acc_values, 'b', label='Validation accuracy')
-plt.title('Training and validation accuracy')
+plt.plot(epochs, acc_values, 'bo', label='Precision de l\'entrainement')
+plt.plot(epochs, val_acc_values, 'b', label='Precision de la validation')
+plt.title('Précision de l\'entrainement et de la validation')
 plt.xlabel('Epochs')
-plt.ylabel('Accuracy')
+plt.ylabel('Precision')
 plt.legend()
 plt.show()
 
-plt.savefig()
+# plt.savefig()
 
 # step8 saving model
 
 # classifier.save("model.h5")
-classifier.save("08juilletSoirPlusCouche.h5")
+classifier.save("22juilletcnnSimple.h5")
 print("model créé !")
 # classifier.save("model13.h5")
 # classifier.save("model65.h5")
